@@ -16,9 +16,9 @@ As documented in [Public Participation Invited](https://github.com/oasis-open/op
 
 - Provide an R code base to facilitate other prototype efforts,
 
-**Additions to Statement of Purpose**
+*Additions to Statement of Purpose*
 
-**Repository Maintainers may include here any clarifications or any additional sections, subsections, and paragraphs that the TC wishes to add as descriptive text, reflecting project status, milestones, releases, modifications to statement of purpose, etc. The project Maintainers will create and maintain this content on behalf of the participants.**
+*Repository Maintainers may include here any clarifications or any additional sections, subsections, and paragraphs that the TC wishes to add as descriptive text, reflecting project status, milestones, releases, modifications to statement of purpose, etc. The project Maintainers will create and maintain this content on behalf of the participants.*
 
 ## Maintainers
 
