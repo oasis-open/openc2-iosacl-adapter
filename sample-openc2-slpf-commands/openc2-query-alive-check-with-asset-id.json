@@ -1,0 +1,11 @@
+{
+  "action": "query",
+  "target": {
+    "features": []
+  },
+  "actuator": {
+    "slpf": {
+      "asset_id": "10"
+    }
+  }
+}

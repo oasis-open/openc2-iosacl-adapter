@@ -1,0 +1,18 @@
+{ 
+   "action":"query",
+   "target":{ 
+      "features":[ 
+         "versions",
+         "profiles",
+         "pairs"
+      ]
+   },
+   "args":{ 
+      "response_requested":"complete"
+   },
+   "actuator":{ 
+      "slpf":{ 
+         "asset_id":"10"
+      }
+   }
+}

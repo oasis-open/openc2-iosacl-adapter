@@ -1,0 +1,23 @@
+{
+  "action": "allow",
+  "target": {
+    "ipv4_connection": {
+      "protocol": "tcp",
+      "src_addr": "192.168.1.2",
+      "src_port": 8080,
+      "dst_addr": "192.168.2.2",
+      "dst_port": 80
+    }
+  },
+  "args": {
+  "response_requested":"complete",
+    "slpf": {
+      "insert_rule": 70        
+    }
+  },
+  "actuator": {
+    "slpf": {
+     	"asset_id": "10"
+    }
+  }
+}

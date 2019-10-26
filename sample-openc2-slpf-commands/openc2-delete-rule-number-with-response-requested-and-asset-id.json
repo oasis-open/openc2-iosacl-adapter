@@ -1,0 +1,14 @@
+{
+  "action": "delete",
+  "target": {
+    "slpf:rule_number": 20
+  },
+  "args": {
+    "response_requested": "complete"
+  },
+  "actuator": {
+    "slpf": {
+     	"asset_id": "10"
+    }
+  }
+}
