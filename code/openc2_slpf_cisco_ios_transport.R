@@ -10,7 +10,7 @@ openc2_slpf_cisco_ios_TRANSPORT_allow_deny <- function(slpf_action){
    
    #Extracts the actuator(s) info, opens a connection (consumer side) and submits the commands.
    for (i in actuator_specifier){
-      consumer <- asset_id_mapping() #extracts info from the configuration file based on the asset_id(s) specified
+      consumer <- asset_id_mapping() #extracts info from the actuator file based on the asset_id(s) specified
       assign("acl_id", value = consumer$acl_id, envir = .GlobalEnv) #assigns the acl_id in the global environment. From there it is assigned to the ACL$access_list_number_or_name
       
       #Takes the argument from the function that defines which function from the "openc2_slpf_cisco_ios_action.R file we have to run to bring the appropriate sequence of commands back for submission using netmiko. This function brings in the current environment a list named "commands". The commands are parsed one-by-one and submitted to the consumer
@@ -58,7 +58,7 @@ openc2_slpf_cisco_ios_TRANSPORT_update <- function(){
    
    #Extracts the actuator(s) info, opens a connection (consumer side) and submits the commands
    for (i in actuator_specifier){
-      consumer <- asset_id_mapping() #extracts info from the configuration file based on the asset_id(s) specified
+      consumer <- asset_id_mapping() #extracts info from the actuator file based on the asset_id(s) specified
       
       #Netmiko (python library) is used to initiate a connection to the consumer and submit/issue the commands
       #Username and Password are used. Replace with token or different authentication mechanisms in the front end technology and openc2proxy (encryption should be supported)
@@ -91,7 +91,7 @@ openc2_slpf_cisco_ios_TRANSPORT_delete <- function(slpf_action){
    
    #Extracts the actuator(s) info, opens a connection (consumer side) and submits the commands
    for (i in actuator_specifier){
-      consumer <- asset_id_mapping() #extracts info from the configuration file based on the asset_id(s) specified
+      consumer <- asset_id_mapping() #extracts info from the actuator file based on the asset_id(s) specified
       assign("acl_id", value = consumer$acl_id, envir = .GlobalEnv) #assigns the acl_id in the global environment. From there it is assigned to the ACL$access_list_number_or_name
       
       if (consumer$acl_type=="ipv4"){ #if the consumer_id is binded with an IPv4 ACL then:
