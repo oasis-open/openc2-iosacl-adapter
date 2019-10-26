@@ -24,8 +24,8 @@ option_list <- list(
                help = "OpenC2 command in JSON - The command needs to be given as a single line enclosed in single quotation marks"),
    make_option(c("-f", "--file"), type = "character", default = NULL,
                help = "path of a file with one or more OpenC2 commands in JSON - optimally, full path should be specified"),
-   make_option(c("-c", "--config"), type = "character", default = NULL,
-               help = "consumer/actuator configuration file")
+   make_option(c("-a", "--actuators"), type = "character", default = NULL,
+               help = "consumer/actuator information file")
 )
 opt_parser <-  OptionParser(option_list=option_list);
 opt <- parse_args(opt_parser);
@@ -40,16 +40,16 @@ netmiko <- import("netmiko")
 #################################################################################################################################################
 
 #################################################################################################################################################
-#Reads the configuration file of the actuators. The configuration file includes information related to the management of ACL and connection details for each actuator
+#Reads the actuator file (actuators.json) that includes all relevant information/details to initiate a connection and configure ACLs to actuators/consumers
 
-#config_file <- "configuration/configuration.json" #path of the configuration file
-if (is.null(opt$config)==FALSE){ #path was given as a parameter in the terminal command
-   config_file <- opt$config
-   config_file <- read_json(config_file)
-}else if (exists("config_file")){ #path is hardcoded - uncomment the variable "config_file"
-   config_file <- read_json(config_file)
-}else if (is.null(opt$config)==TRUE && exists("config_file")==FALSE ){
-   stop("Configuration file with the details of the actuator(s) should be specified. Either the -c flag and a path should be specified OR alternatively the path of the configuration file should be specified in the code by using the 'config_file' variable in the calling code file")
+#actuators <- "actuators.json" #path of the actuator file
+if (is.null(opt$actuators)==FALSE){ #path was given as a parameter in the terminal command
+   actuators <- opt$actuators
+   actuators <- read_json(actuators)
+}else if (exists("actuators")){ #path is hardcoded - uncomment the variable "actuators"
+   actuators <- read_json(actuators)
+}else if (is.null(opt$actuators)==TRUE && exists("actuators")==FALSE ){
+   stop("A file with the details of the actuator(s) should be specified. Either the -a flag and a path should be specified OR alternatively the path of the file should be specified in the code by using the 'actuators' variable in the calling code file")
 }
 #################################################################################################################################################
 
@@ -83,7 +83,7 @@ database()
 #################################################################################################################################################
 
 #################################################################################################################################################
-#Parses parameters given via terminal - openc2 command or file with openc2 command(s), configuration file for the actuators
+#Parses parameters given via terminal - openc2 command or file with openc2 command(s), file with relevant information for the actuators
 if (is.null(opt$openc2)==TRUE && is.null(opt$file)==TRUE){
    stop("OpenC2 command or File is not specified. Type --help for more information")
 }else if (is.null(opt$openc2)==FALSE && is.null(opt$file)==FALSE){
