@@ -1,0 +1,46 @@
+{ 
+   "asset":[ 
+      { 
+         "asset_id":"10",
+         "description":"OSLO-UIO-cisco-edge-router-slpf-ingress",
+         "network":{ 
+            "interface":"WAN",
+            "hostname":"IP or domain",
+            "port":8080,
+            "username":"username",
+            "password":"password",
+            "direction":"ingress",
+            "acl_id":"wan_inbound",
+            "acl_type":"ipv4"
+         }
+      },
+      { 
+         "asset_id":"20",
+         "description":"OSLO-UIO-cisco-dmz-router-slpf-ingress",
+         "network":{ 
+            "interface":"WAN",
+            "hostname":"IP or domain",
+            "port":22,
+            "username":"username",
+            "password":"password",
+            "direction":"ingress",
+            "acl_id":"wan_inbound",
+            "acl_type":"ipv4"
+         }
+      },
+      { 
+         "asset_id":"30",
+         "description":"OSLO-UIO-cisco-dmz1-router-slpf-ingress",
+         "network":{ 
+            "interface":"WAN",
+            "hostname":"IP or domain",
+            "port":22,
+            "username":"username",
+            "password":"password",
+            "direction":"ingress",
+            "acl_id":"wan_inbound6",
+            "acl_type":"ipv6"
+         }
+      }
+   ]
+}
