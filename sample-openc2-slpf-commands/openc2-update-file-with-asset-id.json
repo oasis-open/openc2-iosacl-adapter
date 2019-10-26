@@ -1,0 +1,14 @@
+{ 
+   "action":"update",
+   "target":{ 
+      "file":{ 
+         "path":"/path/path",
+         "name":"cisco_ace_list.txt"
+      }
+   },
+   "actuator":{ 
+      "slpf":{ 
+         "asset_id":"10"
+      }
+   }
+}
