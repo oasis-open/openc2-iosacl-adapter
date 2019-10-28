@@ -1,0 +1,31 @@
+Sample "one line" (flattened) OpenC2 commands for terminal use. The user needs to launch a terminal and navigate to the folder that the openc2-ios-acl-adapter code files are. From there we use the "openc2_slpf_cisco_ios_acl.R" file to issue an OpenC2 command to an actuator. "Rscript openc2_slpf_cisco_ios_acl.R -o "OpenC2 command" -a "path of the file that has information about the actuators". The appropriate schema to create json objects to indicate actuator information can be found at https://github.com/oasis-open/openc2-iosacl-adapter/blob/master/sample-actuator-information-file/actuators.json
+
+The possible parameters are:
+
+-o OPENC2, --openc2=OPENC2
+OpenC2 command in JSON - The command needs to be given as a single line enclosed in single quotation marks
+
+-f FILE, --file=FILE
+path of a file with one or more OpenC2 commands in JSON - optimally, full path should be specified
+
+-a ACTUATORS, --actuators=ACTUATORS
+consumer/actuator information file
+
+
+
+SAMPLE COMMANDS:
+
+#Update File
+Rscript openc2_slpf_cisco_ios_acl.R -o '{"action":"update","target":{"file":{"path":"/path/","name":"ace_list.txt"}},"actuator":{"slpf":{"asset_id":"10"}}}' -a /path/actuators.json
+
+
+#Delete Rule
+Rscript openc2_slpf_cisco_ios_acl.R -o '{"action":"delete","target":{"slpf:rule_number":20},"args":{"response_requested":"complete"},"actuator":{"slpf":{"asset_id":"10"}}}' -a /path/actuators.json
+
+
+#Allow IPv4 connection - assign rule number
+Rscript openc2_slpf_cisco_ios_acl.R -o '{"action":"allow","target":{"ipv4_connection":{"protocol":"tcp","src_addr":"1.2.3.4","src_port":80,"dst_addr":"1.2.3.5","dst_port":8080}},"args":{"start_time":1534775460000,"duration":500000,"response_requested":"complete","slpf":{"insert_rule":70,"persistent":true}},"actuator":{"slpf":{"asset_id":"10"}}}' -a /path/actuators.json
+
+
+#Allow IPv6 connection
+Rscript openc2_slpf_cisco_ios_acl.R -o {"action":"allow","target":{"ipv6_connection":{"protocol":"tcp","src_addr":"2001:DB8::0001:/32"}},"args":{"response_requested":"complete"},"actuator":{"slpf":{"asset_id":"30"}}} -a /path/actuators.json
