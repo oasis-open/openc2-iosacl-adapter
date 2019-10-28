@@ -1,6 +1,6 @@
 ## Note
 
-The file openc2-terminal-commands includes sample "one line" (flattened) OpenC2 commands for terminal use. The user needs to launch a terminal and navigate to the folder that the openc2-ios-acl-adapter code files are. From there we use the "openc2_iosacl_adapter.R" file to issue an OpenC2 command to an actuator. For example "Rscript openc2_iosacl_adapter.R -o "OpenC2 command" -a "path of the file that has information about the actuators". The appropriate schema to create json objects to indicate actuator information can be found at https://github.com/oasis-open/openc2-iosacl-adapter/blob/master/sample-actuator-information-file/actuators.json
+The file openc2-terminal-commands includes sample "one line" (flattened) OpenC2 commands for terminal use. The user needs to launch a terminal and navigate to the folder that the openc2-ios-acl-adapter code files are. From there we use the "openc2_iosacl_adapter.R" file to issue an OpenC2 command to an actuator. For example, "Rscript openc2_iosacl_adapter.R -o "OpenC2 command" -a "path of the file that has information about the actuators". The appropriate schema to create json objects to indicate actuator information can be found at https://github.com/oasis-open/openc2-iosacl-adapter/blob/master/sample-actuator-information-file/actuators.json
 
 Possible parameters are:
 
