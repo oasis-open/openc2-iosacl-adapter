@@ -24,7 +24,7 @@ The repository contains source code (multiple interdependent R files) [here](htt
 
 ### Quickstart
 
-Tha main file for executing OpenC2 command is [*openc2_iosacl_adapter.R*](https://github.com/oasis-open/openc2-iosacl-adapter/tree/master/code)
+Tha main file for executing OpenC2 commands is [*openc2_iosacl_adapter.R*](https://github.com/oasis-open/openc2-iosacl-adapter/tree/master/code)
 
 *"Rscript openc2_iosacl_adapter.R -- help"* will show all the available options
 
