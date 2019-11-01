@@ -134,7 +134,7 @@ The semantics/ requirements as they pertain to common targets:
 | 1 | **start_time** | Date-Time | 0..1 | The specific date/time to initiate the Action |
 | 2 | **stop_time** | Date-Time | 0..1 | The specific date/time to terminate the Action|
 | 3 | **duration** | Duration | 0..1 | The length of time for an Action to be in effect |
-| 4 | **response_requested** | Response-Type | 0..1 | The type of Response required for the Action: `none`, `ack`, `status`, `complete` | **openc2-iosacl-adapter supports the types *none* and *complete*
+| 4 | **response_requested** | Response-Type | 0..1 | The type of Response required for the Action: **none** and **complete**| 
 
 
 **Arguments Unique to SLPF**
