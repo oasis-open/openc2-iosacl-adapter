@@ -150,8 +150,6 @@ The semantics/ requirements as they pertain to common targets:
 | :--- | :--- | :--- | :--- | :--- |
 | 3 | **asset_id** | String | 0..1 | Unique identifier for a particular SLPF |
 
-Response Results Applicable to SLPF**
-
 **Feautures/Results (Used with "query":"features")**
 
 | ID | Name | Type | # | Description |
