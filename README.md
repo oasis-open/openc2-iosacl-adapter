@@ -20,7 +20,11 @@ As documented in [Public Participation Invited](https://github.com/oasis-open/op
 
 The openc2-iosacl-adapter is a software tool (Proof of Concept) written in R for parsing, translating, and executing OpenC2 commands to CISCO devices running IOS (Internetwork Operating System) and support Access Control Lists (ACL). All the activity, response codes and messages are stored into a database.
 
-The repository contains source code (multiple interdependent R files) [here](https://github.com/oasis-open/openc2-iosacl-adapter/tree/master/code), sample actuator/consumer schema and recommended information for inclusion [here](https://github.com/oasis-open/openc2-iosacl-adapter/tree/master/sample-actuator-information-file), OpenC2 sample commands for experimentation [here](https://github.com/oasis-open/openc2-iosacl-adapter/tree/master/sample-openc2-slpf-commands) and [here](https://github.com/oasis-open/openc2-iosacl-adapter/tree/master/sample-openc2-slpf-commands-for-terminal-use), and some other folders containing Cisco-related details to assist in the configuration of the actuator. The tool can be used as a command-line tool or as a R library which can be included in other applications.
+The repository contains source code (multiple interdependent R files) [here](https://github.com/oasis-open/openc2-iosacl-adapter/tree/master/code), a sample actuator (consumer) schema/strucure file with recommended information for inclusion [here](https://github.com/oasis-open/openc2-iosacl-adapter/tree/master/sample-actuator-information-file), OpenC2 sample commands for experimentation [here](https://github.com/oasis-open/openc2-iosacl-adapter/tree/master/sample-openc2-slpf-commands) and [here](https://github.com/oasis-open/openc2-iosacl-adapter/tree/master/sample-openc2-slpf-commands-for-terminal-use), and some other folders containing Cisco-related details to assist in the configuration of the actuator. The tool can be used as a command-line tool or as a R library which can be included in other applications.
+
+### Conformance
+
+The openc2-iosacl-adapter conforms with the [OpenC2 Language Specification v1.0](https://docs.oasis-open.org/openc2/oc2ls/v1.0/cs01/oc2ls-v1.0-cs01.pdf) and the [Stateless Packet Filtering Specification (SLPF) v1.0](https://docs.oasis-open.org/openc2/oc2slpf/v1.0/cs01/oc2slpf-v1.0-cs01.pdf)
 
 ### Quickstart
 
@@ -54,7 +58,7 @@ Execute "Rscript openc2_iosacl_adapter.R -o *'OpenC2_command_enclosed_in_single_
 
 3. Netmiko - "pip install netmiko" or check [here](https://pypi.org/project/netmiko/)
 
-3. Configuration file including relevant actuator/consumer information. You can find an example file that references the appropariate schema [here](https://github.com/oasis-open/openc2-iosacl-adapter/tree/master/sample-actuator-information-file)
+3. Configuration file including relevant actuator/consumer information. You can find an example file that references the appropariate structure [here](https://github.com/oasis-open/openc2-iosacl-adapter/tree/master/sample-actuator-information-file)
 
 For example:
 ```
@@ -73,7 +77,7 @@ For example:
          }
       }
   ```
-**Required** name/value pairs for the actuator communication [actuators.json](https://github.com/oasis-open/openc2-iosacl-adapter/blob/master/sample-actuator-information-file/actuators.json) are:
+**Required** name/value pairs for communicating with an actuator using the [actuators.json](https://github.com/oasis-open/openc2-iosacl-adapter/blob/master/sample-actuator-information-file/actuators.json) file are:
 1. asset_id
 2. network
     - hostname
@@ -82,6 +86,79 @@ For example:
     - password
     - acl_id
     - acl_type
+    
+### Supported Actions, Targets, Arguments, and Actuator Specifiers
+
+**Actions**
+
+| ID | Name | Description |
+| :--- | :--- | :--- |
+| 3 | **query** | Initiate a request for information. Used to communicate the supported options and determine the state or settings |
+| 6 | **deny** | Prevent traffic or access |
+| 8 | **allow** | Permit traffic or access |
+| 16 | **update** | Instructs the Actuator to update its configuration by retrieving and processing a configuration file and update |
+| 20 | **delete** | Remove an access rule |
+
+**Targets**
+
+| ID | Name | Type | Description |
+| :--- | :--- | :--- | :--- |
+| 9 | **features** | Features | A set of items such as Action/Target pairs, profiles versions, options that are supported by the Actuator. The Target is used with the query Action to determine an Actuator's capabilities |
+| 10 | **file** | File | Properties of a file |
+| 15 | **ipv4_connection** | IPv4-Connection | A network connection as specified by a five-tuple (IPv4) |
+| 16 | **ipv6_connection** | IPv6-Connection | A network connection as specified by a five-tuple (IPv6) |
+
+The semantics/ requirements as they pertain to common targets:
+* ipv4_connection
+    * If the protocol = ICMP, the five-tuple is: src_addr, dst_addr, icmp_type, icmp_code, protocol
+      where the ICMP types and codes are defined in [[RFC2780]](#rfc2780)
+    * If the protocol = TCP, UDP or SCTP, the five-tuple is: src_addr, src_port, dst_addr, dst_port, protocol
+    * For any other protocol, the five-tuple is: src_addr, unused, dst_addr, unused, protocol
+* ipv6_connection
+    * If the protocol = ICMP, the five-tuple is: src_addr, dst_addr, icmp_type, icmp_code, protocol
+      where the ICMP types and codes are defined in [[RFC4443]](#rfc4443)
+    * If the protocol = TCP, UDP or SCTP, the five-tuple is: src_addr, src_port, dst_addr, dst_port, protocol
+    * For any other protocol, the five-tuple is: src_addr, unused, dst_addr, unused, protocol
+
+**Targets Unique to SLPF**
+
+| ID | Name | Type | Description |
+| :--- | :--- | :--- | :--- |
+| 1024 | **rule_number** | Rule-ID | Immutable identifier assigned when a rule is created. Identifies a rule to be deleted |
+
+
+**Arguments**
+
+| ID | Name | Type | # | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| 1 | **start_time** | Date-Time | 0..1 | The specific date/time to initiate the Action |
+| 2 | **stop_time** | Date-Time | 0..1 | The specific date/time to terminate the Action|
+| 3 | **duration** | Duration | 0..1 | The length of time for an Action to be in effect |
+| 4 | **response_requested** | Response-Type | 0..1 | The type of Response required for the Action: `none`, `ack`, `status`, `complete` | **openc2-iosacl-adapter supports the types *none* and *complete*
+
+
+**Arguments Unique to SLPF**
+
+| ID | Name | Type | # | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| 1025 | **persistent** | Boolean | 0..1 | Normal operations assume any changes to a device are to be implemented persistently. Setting the persistent modifier to FALSE results in a change that is not persistent in the event of a reboot or restart |
+| 1027 | **insert_rule** | Rule-ID | 0..1 | Specifies the identifier of the rule within a list, typically used in a top-down rule list |
+
+**Actuator Specifiers**
+
+| ID | Name | Type | # | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| 3 | **asset_id** | String | 0..1 | Unique identifier for a particular SLPF |
+
+Response Results Applicable to SLPF**
+
+**Feautures/Results (Used with "query":"features")**
+
+| ID | Name | Type | # | Description |
+| ---: | :--- | :--- | ---: | :--- |
+| 1 | **versions** | Version | 0..* | List of OpenC2 language versions supported by this Actuator |
+| 2 | **profiles** | ArrayOf(Nsid) | 0..1 | List of profiles supported by this Actuator |
+| 3 | **pairs** | Action-Targets | 0..* | List of targets applicable to each supported Action |
 
 
 ## Author
