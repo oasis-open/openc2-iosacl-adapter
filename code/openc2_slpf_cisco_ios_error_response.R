@@ -83,6 +83,7 @@ error_response_device_offline <- function(){
    status_code <- c("102", "200", "400", "500", "501", "503")
    
    uuid_time_date_list <- get("uuid_time_date_list", pos = parent.frame())
+   consumer <- get("consumer", pos = parent.frame()) #gets consumer details
    
    response_message$status <- status_code[6]
    response_message$status_text <- "Service Unavailable - The Actuator is not Alive"
@@ -157,7 +158,7 @@ error_response_consumer_side_parsing <- function(){
    status_code <- c("102", "200", "400", "500", "501", "503")
    
    uuid_time_date_list <- get("uuid_time_date_list", pos = parent.frame()) #gets uuid time and date from the parent environment - the time is more accurate, since it was checked exactly before issuing the command to the actuator
-   consumer <- get("consumer", pos = parent.frame()) #gets uuid time and date from the parent environment - the time is more accurate, since it was checked exactly before issuing the command to the actuator
+   consumer <- get("consumer", pos = parent.frame()) #gets consumer details
    
    response_message$status <- status_code[3]
    response_message$status_text <- "Bad Request. Unable to process Command"
@@ -208,7 +209,7 @@ error_response_consumer_side_rule_number_in_use <- function(){
    status_code <- c("102", "200", "400", "500", "501", "503")
    
    uuid_time_date_list <- get("uuid_time_date_list", pos = parent.frame()) #gets uuid time and date from the parent environment - the time is more accurate, since it was checked exactly before issuing the command to the actuator
-   consumer <- get("consumer", pos = parent.frame()) #gets uuid time and date from the parent environment - the time is more accurate, since it was checked exactly before issuing the command to the actuator
+   consumer <- get("consumer", pos = parent.frame()) #gets consumer details
    
    response_message$status <- status_code[5]
    response_message$status_text <- "Rule Number Currently in Use"
