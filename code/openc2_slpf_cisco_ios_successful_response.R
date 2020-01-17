@@ -9,7 +9,8 @@ successful_response_device_alive <- function(){
       #Reference the OpenC2 specifications for the exact meaning of each code
       status_code <- c("102", "200", "400", "500", "501", "503")
       
-      uuid_time_date_list <- get(uuid_time_date_list, pos = -1L)
+      uuid_time_date_list <- get("uuid_time_date_list", pos = parent.frame())
+      consumer <- get("consumer",envir = parent.frame()) #gets the consumer object from the parent environment
       
       response_message$status <- status_code[2]
       response_message$status_text <- "The Actuator is Alive"
