@@ -51,7 +51,7 @@ key_file = "private_key"
 
 > An example: connection <- netmiko$ConnectHandler(device_type = "cisco_xe", ip = consumer$hostname, username = consumer$username, port = consumer$port, use_keys = "True", key_file = "private_key")
 
-> "key_file" is the private key stored in your device. The public key should be stored at the ssh server (Cisco device).
+> "key_file" is the private key stored in your device. The public key should be stored on the ssh server (Cisco device).
 
 
 **The main file for executing OpenC2 commands is** [*openc2_iosacl_adapter.R*](https://github.com/oasis-open/openc2-iosacl-adapter/tree/master/code)
