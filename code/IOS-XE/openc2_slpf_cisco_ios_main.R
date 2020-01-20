@@ -100,7 +100,7 @@ main <- function(){
       if (openc2$action=="allow" || openc2$action=="deny"){
          ACL$access_list <<- cisco_access_list[1] #access_list notation is "ip access-list"
          ACL$access_list_type <<- cisco_access_list_type[2]
-         five_tuple()
+         five_tuple_extractor()
          ##################################################################################################################################################################
          #Calculates the wildcard mask for the ACL rule
          ##################################################################################################################################################################
@@ -116,7 +116,7 @@ main <- function(){
    }else if (names(openc2$target) == "ipv6_connection" && length(openc2$target) == 1){ #TARGET: IPV6_CONNECTION - extended IPv6 ACL - IPv6 ACLs do not use wildcard masks. Instead, the prefix-length is used to indicate how much of an IPv6 source or destination address should be matched
       if (openc2$action=="allow" || openc2$action=="deny"){
          ACL$access_list <<- cisco_access_list[2] #access_list notation should be "ipv6 access-list"
-         five_tuple()
+         five_tuple_extractor()
          openc2_action_ipv6_connection() #calls the action function
       }else { #not supported action-target pair
          error_response_action_target_argument_pair()
