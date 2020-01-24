@@ -11,6 +11,7 @@ error_response_asset_id <- function(){
    
    #Actuator asset_id is not specified - error
    uuid_time_date_list <- uuid_time_date() #generates time, date, and UUIDv4
+   consumer <- get("consumer", pos = parent.frame()) #gets consumer details
    response_message$status <- status_code[4]
    response_message$status_text <- "Asset_id is not Specified"
    response <- toJSON(response_message,auto_unbox = TRUE, pretty = TRUE)
@@ -35,6 +36,8 @@ error_response_action_target_argument_pair <- function(){
    status_code <- c("102", "200", "400", "500", "501", "503")
    
    uuid_time_date_list <- uuid_time_date() #generates time, date, and UUIDv4
+   consumer <- get("consumer", envir = parent.frame()) #gets consumer details
+   
    response_message$status <- status_code[5]
    response_message$status_text <- "Bad Request. Unable to process Command - Not Supported Action/Target Pair or Argument"
    response <- toJSON(response_message, auto_unbox = TRUE, pretty = TRUE)
@@ -42,8 +45,8 @@ error_response_action_target_argument_pair <- function(){
    
    conn <- dbConnect(RSQLite::SQLite(), database_name) #creates a database connection
    query <- dbSendQuery(conn = conn,
-                        "INSERT INTO OpenC2 (UID, Date, Time, OpenC2_Command, Status_Code, Status_Text)
-                           VALUES (?,?,?,?,?,?)", list(uuid_time_date_list$uid, uuid_time_date_list$date, uuid_time_date_list$time, json_copy_of_openc2_command, response_message$status, response_message$status_text))
+                        "INSERT INTO OpenC2 (UID, Date, Time, Asset_ID, OpenC2_Command, Status_Code, Status_Text)
+                           VALUES (?,?,?,?,?,?,?)", list(uuid_time_date_list$uid, uuid_time_date_list$date, uuid_time_date_list$time, consumer$asset_id, json_copy_of_openc2_command, response_message$status, response_message$status_text))
    dbClearResult(query) #frees all resources (local and remote) associated with a result set. In some cases (e.g., very large result sets) this can be a critical step to avoid exhausting resources (memory, file descriptors, etc.)
    dbDisconnect(conn)
    stop(response)

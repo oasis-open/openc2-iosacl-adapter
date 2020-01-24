@@ -19,7 +19,8 @@ openc2_slpf_cisco_ios_TRANSPORT_allow_deny <- function(slpf_action){
       
       #Netmiko (python library) is used to initiate a connection to the consumer and submit/issue the commands
       #Username and Password are used. Replace with token or different authentication mechanisms in the front end technology and openc2proxy (encryption should be supported)
-      connection <- netmiko$ConnectHandler(device_type = "cisco_ios", ip = consumer$hostname, username = consumer$username, password = consumer$password, port = consumer$port)
+      connection <- netmiko$ConnectHandler(device_type = "cisco_xe", ip = consumer$hostname, username = consumer$username, password = consumer$password, port = consumer$port)
+      #connection <- netmiko$ConnectHandler(device_type = "cisco_xe", ip = consumer$hostname, username = consumer$username, port = consumer$port, use_keys='True', key_file="private_key")
       
       #Generates Time, UUIDv4, Date
       uuid_time_date_list <- uuid_time_date()
@@ -62,7 +63,8 @@ openc2_slpf_cisco_ios_TRANSPORT_update <- function(){
       
       #Netmiko (python library) is used to initiate a connection to the consumer and submit/issue the commands
       #Username and Password are used. Replace with token or different authentication mechanisms in the front end technology and openc2proxy (encryption should be supported)
-      connection <- netmiko$ConnectHandler(device_type = "cisco_ios", ip = consumer$hostname, username = consumer$username, password = consumer$password, port = consumer$port)
+      connection <- netmiko$ConnectHandler(device_type = "cisco_xe", ip = consumer$hostname, username = consumer$username, password = consumer$password, port = consumer$port)
+      #connection <- netmiko$ConnectHandler(device_type = "cisco_xe", ip = consumer$hostname, username = consumer$username, port = consumer$port, use_keys='True', key_file="private_key")
       
       #Generates Time, UUIDv4, Date
       uuid_time_date_list <- uuid_time_date()
@@ -99,7 +101,6 @@ openc2_slpf_cisco_ios_TRANSPORT_delete <- function(slpf_action){
          ACL$access_list_type <<- cisco_access_list_type[2]
       }else if (consumer$acl_type=="ipv6"){ #if the consumer_id is binded with an IPv6 ACL then:
          ACL$access_list <<- cisco_access_list[2]
-         ACL$access_list_type <<- cisco_access_list_type[2]
       }else{
          #stop execution if needed and issue response message
       }
@@ -110,7 +111,8 @@ openc2_slpf_cisco_ios_TRANSPORT_delete <- function(slpf_action){
       
       #Netmiko (python library) is used to initiate a connection to the consumer and submit/issue the commands
       #Username and Password are used. Replace with token or different authentication mechanisms in the front end technology and openc2proxy (encryption should be supported)
-      connection <- netmiko$ConnectHandler(device_type = "cisco_ios", ip = consumer$hostname, username = consumer$username, password = consumer$password, port = consumer$port)
+      connection <- netmiko$ConnectHandler(device_type = "cisco_xe", ip = consumer$hostname, username = consumer$username, password = consumer$password, port = consumer$port)
+      #connection <- netmiko$ConnectHandler(device_type = "cisco_xe", ip = consumer$hostname, username = consumer$username, port = consumer$port, use_keys='True', key_file="private_key")
       
       #Generates Time, UUIDv4, Date
       uuid_time_date_list <- uuid_time_date()

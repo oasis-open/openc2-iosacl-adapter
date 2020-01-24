@@ -10,7 +10,7 @@ temporal <- function(){
             command_set <- list(entry_three, entry_four)
       }else if (is.null(openc2$args$start_time)==FALSE && is.null(openc2$args$stop_time)==TRUE){ #If the start_time exists and stop_time is not populated it checks for existing duration argument
             
-            if (is.null(openc2$args$duration)==FALSE){ #the duration is the end time in milliseconds - if the duration argument is populated - it calculates the stop time
+            if (is.null(openc2$args$duration)==FALSE){ #the duration per OpenC2 is defined in milliseconds - if the duration argument is populated - it calculates the stop time
                   time_range_name <<- paste("time_range_name", Sys.Date(), format(Sys.time(), "-%H-%M-%S",),sep = "") #creates a time range name for a cisco ios device
                   start_time <- format(as.POSIXlt(openc2$args$start_time/1000, tz = "", origin = "1970-1-1"), "%H:%M %d %B %Y") #converts milliseconds to seconds and translates to Cisco ios format
                   duration <- openc2$args$start_time + openc2$args$duration #duration is in milliseconds
