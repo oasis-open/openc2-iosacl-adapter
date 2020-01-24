@@ -168,6 +168,7 @@ main <- function(){
                      #Checks if the device is alive
                      x <- tryCatch({
                         connection <- netmiko$ConnectHandler(device_type = "cisco_xe", ip = consumer$hostname, username = consumer$username, port = consumer$port, use_keys='True', key_file="private_key")
+                        #connection <- netmiko$ConnectHandler(device_type = "cisco_xe", ip = consumer$hostname, username = consumer$username, password = consumer$password, port = consumer$port)
                      },
                      error = function(cond){
                         assign("device_off",value = TRUE,envir = .GlobalEnv) #if we catch an error (asset/device is offline) we generate the variable "device_off" with a TRUE value. This allows the next if statement to generate the appropriate response messages (status_code, status_text) 
