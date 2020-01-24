@@ -1,0 +1,30 @@
+{
+  "action": "deny",
+  "target": {
+    "ipv4_connection": {
+      "protocol": "tcp",
+      "src_addr": "192.168.1.2",
+      "dst_addr": "192.168.2.2",
+      "dst_port": 80
+    }
+  },
+  "args": {
+    "response_requested": "complete",
+    "slpf": {
+      "drop_process": "none",
+      "vendor_specific": {
+      	"cisco": {
+      		"cisco_acl":{
+      			"cisco_acl_id": "acl_1",
+      			"time_range":"mon_wed_fri"
+      		}
+      	}
+      }          
+    }
+  },
+  "actuator": {
+    "slpf": {
+      	"asset_id": "10"
+    }
+  }
+}
