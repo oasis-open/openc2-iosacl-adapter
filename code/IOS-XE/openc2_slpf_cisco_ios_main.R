@@ -24,6 +24,13 @@ main <- function(){
                 source_wildcard="", source_operator_port="",
                 destination_addr="", destination_wildcard="",
                 destination_operator_port="", time_range="")
+   
+   #Reponse Message
+   response_message <- list(status="", status_text="")
+   #Response Status Code
+   #Reference the OpenC2 specifications for the exact meaning of each code
+   status_code <- c("102", "200", "400", "500", "501", "503")
+   
    ###########################################################################################
    
    #Supported Language Specification Versions (QUERY:FEATURES)
@@ -104,10 +111,14 @@ main <- function(){
          ##################################################################################################################################################################
          #Calculates the wildcard mask for the ACL rule
          ##################################################################################################################################################################
-         ipnet(openc2$target$ipv4_connection$src_addr)
-         ACL$source_wildcard <<- wildcard
-         ipnet(openc2$target$ipv4_connection$dst_addr)
-         ACL$destination_wildcard <<- wildcard
+         if(!is.null(openc2$target$ipv4_connection$src_addr)){
+            ipnet(openc2$target$ipv4_connection$src_addr)
+            ACL$source_wildcard <<- wildcard
+         }
+         if(!is.null(openc2$target$ipv4_connection$dst_addr)){
+            ipnet(openc2$target$ipv4_connection$dst_addr)
+            ACL$destination_wildcard <<- wildcard
+         }
          ##################################################################################################################################################################
          openc2_action_ipv4_connection() #calls the ipv4 action function
       }else { #not supported action-target pair
@@ -156,7 +167,7 @@ main <- function(){
                      
                      #Checks if the device is alive
                      x <- tryCatch({
-                        connection <- netmiko$ConnectHandler(device_type = "cisco_xe", ip = consumer$hostname, username = consumer$username, password = consumer$password, port = consumer$port)
+                        connection <- netmiko$ConnectHandler(device_type = "cisco_xe", ip = consumer$hostname, username = consumer$username, port = consumer$port, use_keys='True', key_file="private_key")
                      },
                      error = function(cond){
                         assign("device_off",value = TRUE,envir = .GlobalEnv) #if we catch an error (asset/device is offline) we generate the variable "device_off" with a TRUE value. This allows the next if statement to generate the appropriate response messages (status_code, status_text) 
@@ -204,6 +215,7 @@ main <- function(){
                response_message$status <- status_code[2]
                results <- list(status=response_message$status, results=results)  #results are appended to the status message
                response <- toJSON(x = results, pretty = TRUE, auto_unbox = TRUE)
+               uuid_time_date_list <- uuid_time_date() #generates time, date, and UUIDv4
                conn <- dbConnect(RSQLite::SQLite(), database_name) #creates a database connection
                query <- dbSendQuery(conn = conn,
                                     "INSERT INTO OpenC2 (UID, Date, Time, OpenC2_Command, Status_Code, Status_Text)
