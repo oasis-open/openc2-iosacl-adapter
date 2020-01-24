@@ -22,6 +22,8 @@ The openc2-iosacl-adapter is a software tool (Proof of Concept) written in R for
 
 The repository contains source code (multiple interdependent R files) [here](https://github.com/oasis-open/openc2-iosacl-adapter/tree/master/code), a sample actuator (consumer) schema/strucure file with recommended information for inclusion [here](https://github.com/oasis-open/openc2-iosacl-adapter/tree/master/sample-actuator-information-file) (this is omitted if we connect the openc2-iosacl-adapter with an orchestrator), OpenC2 sample commands for experimentation [here](https://github.com/oasis-open/openc2-iosacl-adapter/tree/master/sample-openc2-slpf-commands) and [here](https://github.com/oasis-open/openc2-iosacl-adapter/tree/master/sample-openc2-slpf-commands-for-terminal-use), and some other folders containing Cisco-related details to assist in the configuration of the actuator. The tool can be used as a command-line tool or integrated in other applications, such as OpenC2 orchestrator or proxy.
 
+#### Note: The tool participated for testing conformance and interoperability at the OpenC2 Plugfest in Janury 27 and 28 2020. You can find more information about the use case tested and the lab [HERE](https://github.com/Vasileios-Mavroeidis/openc2-plugfest/tree/master/2020-January).
+
 ### Conformance
 
 The openc2-iosacl-adapter conforms with the [OpenC2 Language Specification v1.0](https://docs.oasis-open.org/openc2/oc2ls/v1.0/cs01/oc2ls-v1.0-cs01.pdf) and the [Stateless Packet Filtering Specification (SLPF) v1.0](https://docs.oasis-open.org/openc2/oc2slpf/v1.0/cs01/oc2slpf-v1.0-cs01.pdf)
