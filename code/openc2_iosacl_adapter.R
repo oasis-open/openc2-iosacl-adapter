@@ -32,11 +32,11 @@ opt <- parse_args(opt_parser);
 #################################################################################################################################################
 
 #################################################################################################################################################
-#The Python library "netmiko" must be installed for the code to run. This can be done manually with "pip install netmiko"
-netmiko <- import("netmiko")
-
 # Set the path to the Python executable file - Configure which python executable to use
 #use_python("/usr/bin/python", required = T)
+
+#The Python library "netmiko" must be installed for the code to run. This can be done manually with "pip install netmiko"
+netmiko <- import("netmiko")
 #################################################################################################################################################
 
 #################################################################################################################################################
